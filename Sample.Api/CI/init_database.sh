@@ -1,1 +1,1 @@
-for i in `find /home/database/ -name "*.sql" | sort --version-sort`; do mysql -udocker -pdocker rest_with_aspnet < $i; done;
+for i in `find /home/database/ -name "*.sql" | sort --version-sort`; do mysql -udocker -pdocker sample < $i; done;

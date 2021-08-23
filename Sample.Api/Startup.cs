@@ -160,7 +160,7 @@ namespace Sample
         public void Configure(IApplicationBuilder app, IWebHostEnvironment env)
         {
             
-            if (env.IsDevelopment())
+            if (!env.IsDevelopment())
             {
                 app.UseDeveloperExceptionPage();
                 app.UseSwagger();
@@ -170,7 +170,7 @@ namespace Sample
                 app.UseRewriter(option);
             }
 
-            app.UseHttpsRedirection();
+            //app.UseHttpsRedirection();
 
             app.UseRouting();
 
