@@ -1,0 +1,6 @@
+CREATE TABLE `user_has_roles` (
+	`id` INT(11) NOT NULL AUTO_INCREMENT,
+	`user_id` INT(11) NOT NULL DEFAULT 0,
+	`role_id` INT(11) NOT NULL DEFAULT 0,
+	PRIMARY KEY (`id`)
+)
