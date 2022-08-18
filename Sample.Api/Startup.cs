@@ -80,24 +80,21 @@ namespace Sample
                     .AddAuthenticationSchemes(JwtBearerDefaults.AuthenticationScheme)
                     .RequireAuthenticatedUser().Build());
             });
-
             services.AddCors(options => options.AddDefaultPolicy(builder => {
                 builder.AllowAnyOrigin()
                 .AllowAnyMethod()
                 .AllowAnyHeader();
             }));
-
             services.AddControllers();
 
             // Adding Configuration of database connection
             var connection = Configuration["MySQLConnection:MySQLConnectionString"];
-            services.AddDbContext<MySQLContext>(options => options.UseMySql(connection));
+            services.AddDbContext<MySQLContext>(options => options.UseMySql(connection, new MySqlServerVersion(new Version(5,7,35))));
 
-            if (Environment.IsDevelopment())
+            /*if (Environment.IsDevelopment())
             {
                 MigrateDatabase(connection);
-            }
-
+            }*/
             services.AddMvc(options => {
                options.RespectBrowserAcceptHeader = true;
                options.FormatterMappings.SetMediaTypeMappingForFormat("xml", MediaTypeHeaderValue.Parse("application/xml")); 
@@ -113,9 +110,7 @@ namespace Sample
 
             // Versioning API
             services.AddApiVersioning();
-
             // Dependency Injection
-
             services.AddScoped<IUserRepository, UserRepository>();
 
             services.AddScoped<IPersonAppService, PersonAppService>();
@@ -152,6 +147,29 @@ namespace Sample
                             Name = "Tiago Aristides"
                         }
                     });
+                c.AddSecurityDefinition("Bearer", new OpenApiSecurityScheme
+                {
+                    In = ParameterLocation.Header,
+                    Description = "Please enter a valid token",
+                    Name = "Authorization",
+                    Type = SecuritySchemeType.Http,
+                    BearerFormat = "JWT",
+                    Scheme = "Bearer"
+                });
+                c.AddSecurityRequirement(new OpenApiSecurityRequirement
+                {
+                    {
+                        new OpenApiSecurityScheme
+                        {
+                            Reference = new OpenApiReference
+                            {
+                                Type=ReferenceType.SecurityScheme,
+                                Id="Bearer"
+                            }
+                        },
+                        new string[]{}
+                    }
+                });
             });
         }
 
@@ -189,13 +207,12 @@ namespace Sample
         {
             try
             {
-                var evolveConnection = new MySql.Data.MySqlClient.MySqlConnection(connection);
+                var evolveConnection = new  MySqlConnector.MySqlConnection(connection);
                 var evolve = new Evolve.Evolve(evolveConnection, msg => Log.Information(msg))
                 {
                     Locations = new List<string> { "../Sample.Repository/db/migrations", "../Sample.Repository/db/dataset" },
                     IsEraseDisabled = true,
                 };
-
                 evolve.Migrate();
             }
             catch (Exception ex)
