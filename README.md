@@ -2,7 +2,7 @@
 
 ### Caracteristicas
 
-- Projeto padrão para desenvolvimento de REST API's RESTFul com ASP.NET Core 6 e Docker.
+- Projeto padrão para desenvolvimento de REST API's com ASP.NET Core 6 e Docker.
 - Authenticação com Jwt Bearer
 - Aceita JSON ou XML
 - Suporte/Documentação com Swagger
