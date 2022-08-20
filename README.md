@@ -15,6 +15,10 @@
 
 - (REST API's RESTFul do 0 à Azure com ASP.NET Core 5 e Docker) https://www.udemy.com/course/restful-apis-do-0-a-nuvem-com-aspnet-core-e-docker/
 
+### Arquitetura do Projeto
+
+![App Screenshot](https://github.com/mraristides/The-WebApi-NET/.github/architecture.png)
+
 ### Configure o appsettings.json
 
 ```json
@@ -34,8 +38,8 @@
 			"Default": "Information",
 			"Microsoft": "Warning",
 			"Microsoft.Hosting.Lifetime": "Information"
-		}
+        }
 	},
-	"AllowedHosts": "*"
+    "AllowedHosts": "*"
 }
 ```

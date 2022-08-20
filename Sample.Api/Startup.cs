@@ -110,6 +110,8 @@ namespace Sample
 
             // Versioning API
             services.AddApiVersioning();
+
+            
             // Dependency Injection
             services.AddScoped<IUserRepository, UserRepository>();
 
