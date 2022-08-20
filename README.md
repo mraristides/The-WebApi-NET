@@ -17,7 +17,7 @@
 
 ### Arquitetura do Projeto
 
-![App Screenshot](https://github.com/mraristides/The-WebApi-NET/.github/architecture.png)
+![App Screenshot](https://github.com/mraristides/The-WebApi-NET/blob/main/.github/architecture.png?raw=true)
 
 ### Configure o appsettings.json
 
